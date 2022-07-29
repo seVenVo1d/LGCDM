@@ -1,14 +1,16 @@
+# Plotting Q vs z by varying lambda for constant gamma
+
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
 from numpy import arange
 
-from main_functions import Q, z_dagger_finder
+from main_functions import Q
 
 z_values = arange(0, 10.0001, 0.0001)
 
 Q_values_15 = [Q(z, -0.017, -12) for z in z_values]
-Q_values_17 = [Q(z, -0.017, -15) for z in z_values]
-Q_values_20 = [Q(z, -0.017, -18) for z in z_values]
+Q_values_17 = [Q(z, -0.017, -16) for z in z_values]
+Q_values_20 = [Q(z, -0.017, -20) for z in z_values]
 
 
 # ---------- PLOTTING ----------
@@ -21,9 +23,9 @@ fig, ax0 = plt.subplots(figsize=(19.20, 10.80))
 
 # ---------- AX0 ----------
 
-ax0.plot(z_values, Q_values_15, linestyle=(0, (1, 10)), color='#661100', label='$\lambda = -12 (z_{\dagger} = 3.51)$')
-ax0.plot(z_values, Q_values_17, linestyle=(0, (5, 10)), color='#DDCC77', label='$\lambda = -15 (z_{\dagger} = 2.40)$')
-ax0.plot(z_values, Q_values_20, linestyle=(0, (5, 1)), color='#999933', label='$\lambda = -18 (z_{\dagger} = 1.80)$')
+ax0.plot(z_values, Q_values_15, linestyle='--', color='#661100', label='$\lambda = -12$')
+ax0.plot(z_values, Q_values_17, linestyle='-.', color='#DDCC77', label='$\lambda = -16$')
+ax0.plot(z_values, Q_values_20, linestyle=':', color='#999933', label='$\lambda = -20$')
 ax0.axhline(y=1, color='black', linestyle='-', label='$\Lambda$CDM')
 ax0.axhline(y=-1, color='red', linestyle='-', label=r'$\rho_{\rm g} = -\rho_{\rm g,0}$')
 
@@ -34,7 +36,7 @@ ax0.set_xlim(0, 10)
 ax0.set_ylim(-1.1, 1.1)
 # Setting Labels
 ax0.set_xlabel('$z$')
-ax0.set_ylabel('$\mathcal{Q}(z, z_{\dagger}, \lambda)$')
+ax0.set_ylabel('$\mathcal{Q}(z, \gamma, \lambda)$')
 # Minor Ticks
 ax0.yaxis.set_ticks_position('both')
 ax0.xaxis.set_ticks_position('both')

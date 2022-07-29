@@ -158,7 +158,7 @@ def dm_LCDM(z, h0):
 
 def w_g(z, gamma, lamda):
     x = 1 - 3*gamma*(lamda-1)*ln(1+z)
-    return -1 + gamma/x
+    return -1 + (gamma/x)
 
 
 #--------- CALCULATING MATTER DENSITY PARAMETER ---------#
@@ -198,7 +198,9 @@ def E_function_LCDM(z, h0):
     Omega_r = w_r / h0**2
     return sqrt(Omega_m*(1+z)**3 + Omega_r*(1+z)**4 + (1-Omega_m-Omega_r))
 
+#--------- CALCULATING TRANSITION REDSHIFT ---------#
 
 def z_dagger_finder(gamma, lamda):
-    return exp(1/(3*gamma*(lamda-1))) - 1
+    psi = 3*gamma*(lamda-1)
+    return exp(1/psi) - 1
 

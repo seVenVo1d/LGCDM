@@ -67,7 +67,7 @@ ax0.set_xlim(-12, -20)
 # ax0.set_ylim(65, 75)
 # Setting Labels
 ax0.set_ylabel('$H_0$')
-ax0.set_xlabel('$\gamma$')
+ax0.set_xlabel('$\lambda$')
 # Minor Ticks
 ax0.yaxis.set_ticks_position('both')
 ax0.xaxis.set_ticks_position('both')
