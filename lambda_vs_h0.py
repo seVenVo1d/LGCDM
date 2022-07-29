@@ -9,7 +9,7 @@ from numpy import arange
 from main_functions import hubble_finder
 
 # gamma values starting from g=-0.025 up to g=-0.06, with step size -0.001
-lamda_values = arange(-4, -20.1, -0.1)
+lamda_values = arange(-12, -20.1, -0.1)
 
 # H_0 values for lambda = 0 at different z_dagger values
 h0_values_1 = [hubble_finder(-0.015, lamda) for lamda in lamda_values]
@@ -63,7 +63,7 @@ ax0.plot(lamda_values, h0_values_6, linestyle=(0, (3, 1, 1, 1)),
 # ---------- GRAPH OPTIONS ----------
 
 # Setting Limits
-ax0.set_xlim(-4, -20)
+ax0.set_xlim(-12, -20)
 # ax0.set_ylim(65, 75)
 # Setting Labels
 ax0.set_ylabel('$H_0$')

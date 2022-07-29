@@ -1,12 +1,13 @@
 # gDE-Hubble Constant Calculation
-# Plotting H_0 as a function of gamma and lambda - Contour Plot
+# Plotting w_g,0 as a function of z_dagger and lambda - Contour Plot
+# All parameters are taken from Planck 2018 (TT,TE,EE+lowE+lensing)
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
 from matplotlib import cm
 from numpy import arange, meshgrid, reshape, transpose
 
-from main_functions import hubble_finder
+from main_functions import w_g
 
 # gamma values starting from g=-0.025 up to g=-0.06, with step size -0.001
 gamma_values = arange(-0.015, -0.0205, -0.0005)
@@ -17,7 +18,7 @@ lamda_values = arange(-12, -20.1, -0.1)
 X, Y = meshgrid(gamma_values, lamda_values)
 
 variable_grid_data = list((x, y) for x in gamma_values for y in lamda_values)
-data_points = [hubble_finder(x, y) for (x, y) in variable_grid_data]
+data_points = [w_g(0, x, y) for (x, y) in variable_grid_data]
 new_points = reshape(data_points, (len(gamma_values), len(lamda_values)))
 Z = transpose(new_points)
 
@@ -38,8 +39,6 @@ ax0.set_xlim(-0.015, -0.020)
 # Setting Labels
 ax0.set_xlabel('$\gamma$')
 ax0.set_ylabel('$\lambda$')
-# Minor Ticks
-ax0.get_yaxis().set_major_formatter(tck.ScalarFormatter())
 # Tick Options
 ax0.tick_params(which='major', width=1, size=7, direction='in')
 # Other Options
@@ -47,8 +46,4 @@ plt.colorbar()
 plt.imshow(Z, vmin=0., vmax=3., cmap=cm.plasma, origin='lower', extent=[X.min(), X.max(), Y.min(), Y.max()], aspect=8)
 plt.axis('tight')
 plt.show()
-
-ax0.set_rasterized(True)
-fig.savefig('plots/h0_contour.eps',rasterized=True,dpi=600)
-
-
+fig.savefig('plots/eos_parameter.eps', format='eps', dpi=600)

@@ -13,16 +13,16 @@ gamma_values = arange(-0.015, -0.0205, -0.0005)
 
 
 # H_0 values for lambda = 0 at different z_dagger values
-gamma_values_4 = [hubble_finder(gamma, -4) for gamma in gamma_values]
-
-# H_0 values for lambda = 0 at different z_dagger values
-gamma_values_8 = [hubble_finder(gamma, -8) for gamma in gamma_values]
-
-# H_0 values for lambda = 0 at different z_dagger values
 gamma_values_12 = [hubble_finder(gamma, -12) for gamma in gamma_values]
 
 # H_0 values for lambda = 0 at different z_dagger values
+gamma_values_14 = [hubble_finder(gamma, -14) for gamma in gamma_values]
+
+# H_0 values for lambda = 0 at different z_dagger values
 gamma_values_16 = [hubble_finder(gamma, -16) for gamma in gamma_values]
+
+# H_0 values for lambda = 0 at different z_dagger values
+gamma_values_18 = [hubble_finder(gamma, -18) for gamma in gamma_values]
 
 # H_0 values for lambda = 0 at different z_dagger values
 gamma_values_20 = [hubble_finder(gamma, -20) for gamma in gamma_values]
@@ -39,16 +39,16 @@ fig, ax0 = plt.subplots(figsize=(19.20, 10.80))
 
 # ---------- AX0 ----------
 
-ax0.plot(gamma_values, gamma_values_4, linestyle=(0, (1, 10)),
-        color='#661100', label='$\lambda = -4$')
+ax0.plot(gamma_values, gamma_values_12, linestyle=(0, (1, 10)),
+        color='#661100', label='$\lambda = -12$')
 
-ax0.plot(gamma_values, gamma_values_8, linestyle=(0, (1, 1)),
-        color='#CC6677', label='$\lambda = -8$')
+ax0.plot(gamma_values, gamma_values_14, linestyle=(0, (1, 1)),
+        color='#CC6677', label='$\lambda = -14$')
 
-ax0.plot(gamma_values, gamma_values_12, linestyle=(0, (5, 10)),
-        color='#DDCC77', label='$\lambda = -12$')
+ax0.plot(gamma_values, gamma_values_16, linestyle=(0, (5, 10)),
+        color='#DDCC77', label='$\lambda = -16$')
 
-ax0.plot(gamma_values, gamma_values_16, linestyle=(0, (5, 1)),
+ax0.plot(gamma_values, gamma_values_18, linestyle=(0, (5, 1)),
         color='#999933', label='$\lambda = -16$')
 
 ax0.plot(gamma_values, gamma_values_20, linestyle=(0, (3, 1, 1, 1, 1, 1)),
