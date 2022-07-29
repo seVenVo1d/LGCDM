@@ -3,12 +3,11 @@
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
-from matplotlib import cm
 from numpy import arange
 
-from negative_lambda.main_functions import (E_function, E_function_infty, E_function_LCDM,
-                            hubble_finder, hubble_finder_infty,
+from main_functions import (E_function, E_function_LCDM, hubble_finder,
                             hubble_finder_LCDM)
+
 
 # Important Parameters
 N_eff = 3.046  # effective neutrino number
@@ -19,24 +18,21 @@ w_m = 0.1430  # matter density parameter
 z_values = arange(0, 1, 0.001)
 
 # Adjusting the z_dagger parameter
-z_dagger_test = 2
+gamma_test = -0.019
 
 # Hubble Constants
 h0_lcdm = hubble_finder_LCDM() / 100
-h0_2 = hubble_finder(z_dagger_test, -2) / 100
-h0_4 = hubble_finder(z_dagger_test, -4) / 100
-h0_16 = hubble_finder(z_dagger_test, -16) / 100
-h0_32 = hubble_finder(z_dagger_test, -32) / 100
-h0_infty = hubble_finder_infty(z_dagger_test) / 100
-
+h0_12 = hubble_finder(gamma_test, -12) / 100
+h0_14 = hubble_finder(gamma_test, -14) / 100
+h0_16 = hubble_finder(gamma_test, -16) / 100
+h0_18 = hubble_finder(gamma_test, -18) / 100
 
 # ---------- E(z) ----------
 Ez_LCDM = [E_function_LCDM(z, h0_lcdm) for z in z_values]
-Ez_2 = [E_function(z, h0_2, z_dagger_test, -2) for z in z_values]
-Ez_4 = [E_function(z, h0_4 , z_dagger_test, -4) for z in z_values]
-Ez_16 = [E_function(z, h0_16 , z_dagger_test, -16) for z in z_values]
-Ez_32 = [E_function(z, h0_32 , z_dagger_test, -32) for z in z_values]
-Ez_infty = [E_function_infty(z, h0_infty , z_dagger_test) for z in z_values]
+Ez_12 = [E_function(z, h0_12, gamma_test, -12) for z in z_values]
+Ez_14 = [E_function(z, h0_14 , gamma_test, -14) for z in z_values]
+Ez_16 = [E_function(z, h0_16 , gamma_test, -16) for z in z_values]
+Ez_18 = [E_function(z, h0_18 , gamma_test, -18) for z in z_values]
 
 
 # ---------- PLOTTING ----------
@@ -60,20 +56,18 @@ fig, ax0 = plt.subplots(figsize=(19.20, 10.80))
 ax0.plot(z_values, Ez_LCDM, linestyle='-',
         color='black', label='$\Lambda$CDM')
 
-ax0.plot(z_values, Ez_2, linestyle=(0, (1, 1)),
-        color='#CC6677', label='$\lambda = -2$')
+ax0.plot(z_values, Ez_12, linestyle=(0, (1, 1)),
+        color='#CC6677', label='$\lambda = -12$')
 
-ax0.plot(z_values, Ez_4, linestyle=(0, (5, 10)),
-        color='#DDCC77', label='$\lambda = -4$')
+ax0.plot(z_values, Ez_14, linestyle=(0, (5, 10)),
+        color='#DDCC77', label='$\lambda = -14$')
 
 ax0.plot(z_values, Ez_16, linestyle=(0, (5, 1)),
         color='#999933', label='$\lambda = -16$')
 
-ax0.plot(z_values, Ez_32, linestyle=(0, (3, 1, 1, 1, 1, 1)),
+ax0.plot(z_values, Ez_18, linestyle=(0, (3, 1, 1, 1, 1, 1)),
         color='#44AA99', label='$\lambda = -32$')
 
-ax0.plot(z_values, Ez_infty, linestyle=(0, (3, 1, 1, 1)),
-        color='#AA4499',  label='$\lambda$ \u2192 $-\infty$')
 
 # ---------- GRAPH OPTIONS ----------
 
@@ -101,4 +95,4 @@ ax0.errorbar(0.55, 1.364, yerr=0.063, fmt='o', ecolor='blue')
 ax0.errorbar(0.90, 1.52, yerr=0.12, fmt='o', ecolor='blue')
 
 plt.show()
-fig.savefig('plots/E_function_20.eps',rasterized=True,dpi=600)
+fig.savefig('plots/E_function_19.eps',rasterized=True,dpi=600)

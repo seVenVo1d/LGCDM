@@ -13,7 +13,7 @@ c = 299792.458  # speed of light in [km/s]
 z_values = arange(0, 10.01, 0.01)
 
 # Adjusting the Lambda parameter
-lamda_test = -
+lamda_test = -18
 
 # Hubble Constants
 h0_lcdm = hubble_finder_LCDM() / 100
@@ -135,7 +135,7 @@ ax1.errorbar(0.51, 62.8701, yerr=0.9882, fmt='o', ecolor='blue')
 
 # eBOSS
 ax1.errorbar(0.70, 60.555, yerr=1.119, fmt='s', ecolor='yellow', label='eBOSS')
-ax1.errorbar(0.85, 63.334, yerr=3.110, fmt='o', ecolor='yellow')
+ax1.errorbar(0.85, 63.334, yerr=3.110, fmt='s', ecolor='yellow')
 ax1.errorbar(1.48, 60.318, yerr=1.572, fmt='s', ecolor='yellow')
 
 # Ly alpha
