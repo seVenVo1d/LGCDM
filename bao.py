@@ -1,39 +1,41 @@
 import matplotlib.gridspec as gridspec
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
+import numpy
 from numpy import arange
 from numpy import log as ln
 
 from main_functions import (dm, dm_LCDM, hubble_finder, hubble_finder_LCDM,
                             hubble_function, hubble_function_LCDM)
 
+
 c = 299792.458  # speed of light in [km/s]
 
-# z values that will be used for the x axis. Runs from z=0 to z=3 with step size 0.01
-z_values = arange(0, 10.01, 0.01)
+# z values that will be used for the x axis. Runs from z=0 to z=5 with step size 0.001
+z_values = arange(0.001, 5.001, 0.001)
 
 # Adjusting the Lambda parameter
-lamda_test = -18
+lamda_test = -24
 
 # Hubble Constants
 h0_lcdm = hubble_finder_LCDM() / 100
+h0_13 = hubble_finder(-0.013, lamda_test) / 100
 h0_15 = hubble_finder(-0.015, lamda_test) / 100
 h0_17 = hubble_finder(-0.017, lamda_test) / 100
-h0_19 = hubble_finder(-0.019, lamda_test) / 100
 
 
 # ---------- PART I H(z) / (1+z) ----------
 LCDM_data_h = [hubble_function_LCDM(z, h0_lcdm) / (1 + z) for z in z_values]
+z_dagger_13_h= [hubble_function(z, h0_13, -0.013, lamda_test) / (1 + z) for z in z_values]
 z_dagger_15_h= [hubble_function(z, h0_15, -0.015, lamda_test) / (1 + z) for z in z_values]
 z_dagger_17_h= [hubble_function(z, h0_17, -0.017, lamda_test) / (1 + z) for z in z_values]
-z_dagger_19_h= [hubble_function(z, h0_19, -0.019, lamda_test) / (1 + z) for z in z_values]
 
 
 # ---------- PART II cln(1+z) / D_M(z) ----------
 LCDM_data_dm = [(c*ln(1+z))/dm_LCDM(z, h0_lcdm) for z in z_values]
+z_dagger_13_dm = [(c*ln(1+z))/dm(z, h0_13, -0.013, lamda_test) for z in z_values]
 z_dagger_15_dm = [(c*ln(1+z))/dm(z, h0_15, -0.015, lamda_test) for z in z_values]
 z_dagger_17_dm = [(c*ln(1+z))/dm(z, h0_17, -0.017, lamda_test) for z in z_values]
-z_dagger_19_dm = [(c*ln(1+z))/dm(z, h0_19, -0.019, lamda_test) for z in z_values]
 
 # ---------- PLOTTING ----------------
 # latex rendering text fonts
@@ -58,14 +60,14 @@ ax1 = fig.add_subplot(spec[1, 0], sharex=ax0)
 
 ax0.plot(z_values, LCDM_data_h, color='black', linestyle='-', label='$\Lambda$CDM')
 
-ax0.plot(z_values, z_dagger_15_h, linestyle=(0, (1, 10)),
-        color='orange', label='$\gamma=-0.015$')
+ax0.plot(z_values, z_dagger_13_h, linestyle=(0, (1, 10)),
+        color='orange', label='$\gamma=-0.013$')
 
-ax0.plot(z_values, z_dagger_17_h, linestyle=(0, (1, 1)),
-        color='green', label='$\gamma=-0.017$')
+ax0.plot(z_values, z_dagger_15_h, linestyle=(0, (1, 1)),
+        color='green', label='$\gamma=-0.015$')
 
-ax0.plot(z_values, z_dagger_19_h, linestyle=(0, (5, 10)),
-        color='red', label='$\gamma=-0.019$')
+ax0.plot(z_values, z_dagger_17_h, linestyle=(0, (5, 10)),
+        color='red', label='$\gamma=-0.017$')
 
 # Errors
 
@@ -94,7 +96,7 @@ ax0.errorbar(2.33, 68.540, yerr=2.149, fmt='+', ecolor='magenta', label=r'Ly$\al
 # ---------- GRAPH OPTIONS ----------
 
 # Setting Limits
-ax0.set_xlim(0, 3.1)
+ax0.set_xlim(0.001, 3)
 ax0.set_ylim(55, 75)
 # Setting Label
 ax0.set_ylabel('$H(z)/1+z$'+ '\n' + '(km/s/Mpc)')
@@ -115,14 +117,14 @@ ax0.tick_params(which='minor', width=0.6, size = 4, direction='in')
 
 ax1.plot(z_values, LCDM_data_dm, color='black', linestyle='-', label='$\Lambda$CDM')
 
-ax1.plot(z_values, z_dagger_15_dm, linestyle=(0, (1, 10)),
-        color='orange', label='$\gamma=-0.015$')
+ax1.plot(z_values, z_dagger_13_dm, linestyle=(0, (1, 10)),
+        color='orange', label='$\gamma=-0.013$')
 
-ax1.plot(z_values, z_dagger_17_dm, linestyle=(0, (1, 1)),
-        color='green', label='$\gamma=-0.017$')
+ax1.plot(z_values, z_dagger_15_dm, linestyle=(0, (1, 1)),
+        color='green', label='$\gamma=-0.015$')
 
-ax1.plot(z_values, z_dagger_19_dm, linestyle=(0, (5, 10)),
-        color='red', label='$\gamma=-0.019$')
+ax1.plot(z_values, z_dagger_17_dm, linestyle=(0, (5, 10)),
+        color='red', label='$\gamma=-0.017$')
 
 # Errors
 
@@ -144,7 +146,7 @@ ax1.errorbar(2.33, 65.209, yerr=3.295, fmt='+', ecolor='magenta', label=r'Ly$\al
 
 # ---------- GRAPH OPTIONS ----------
 # Setting Limits
-ax1.set_xlim(0, 3.1)
+ax1.set_xlim(0.001, 3)
 ax1.set_ylim(55, 75)
 # Setting Label
 ax1.set_ylabel('$c\ln(1+z)/d_M(z)$' + '\n' + '(km/s/Mpc)')
@@ -165,4 +167,4 @@ ax1.legend(loc='lower left')
 
 plt.setp(ax0.get_xticklabels(), visible=False)
 plt.show()
-fig.savefig('plots/bao_18.eps', format='eps', dpi=600)
+fig.savefig('plots/bao_24.eps', format='eps', dpi=600)

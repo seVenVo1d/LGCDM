@@ -1,23 +1,21 @@
-# gDE-Hubble Constant Calculation
+# LSCDM - Model Calculations
 # Plotting z_dagger as a function of gamma and lambda - Contour Plot
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
 from matplotlib import cm
-from numpy import arange, meshgrid, reshape, transpose, exp
+from numpy import arange, meshgrid, reshape, transpose
 
 from main_functions import z_dagger_finder
 
 
-# gamma values starting from g=-0.025 up to g=-0.06, with step size -0.001
-gamma_values = arange(-0.015, -0.0205, -0.0005)
+# gamma values starting from gamma = -0.01 up to gamma =-0.018, with step size -0.0005
+gamma_values = arange(-0.01, -0.01805, -0.0005)
 
-# lambda values starting from lambda = -8 to lambda = -32 with step size -0.25
-lamda_values = arange(-12, -20.1, -0.1)
-
+# lambda values starting from lambda = -13 to lambda = -24 with step size -0.01
+lamda_values = arange(-13, -24.01, -0.01)
 
 X, Y = meshgrid(gamma_values, lamda_values)
-
 
 variable_grid_data = list((x, y) for x in gamma_values for y in lamda_values)
 data_points = [z_dagger_finder(x, y) for (x, y) in variable_grid_data]
@@ -37,7 +35,7 @@ plt.contourf(X, Y, Z, cmap=cm.plasma, antialiased=True)
 # ---------- GRAPH OPTIONS ----------
 
 # Setting Limits
-ax0.set_xlim(-0.015, -0.020)
+ax0.set_xlim(-0.01, -0.018)
 # Setting Labels
 ax0.set_xlabel('$\gamma$')
 ax0.set_ylabel('$\lambda$')

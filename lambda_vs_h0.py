@@ -1,6 +1,5 @@
-# gDE-Hubble Constant Calculation
-# Plotting lambda vs H0 for different gamma values
-# All parameters are taken from Planck 2018 (TT,TE,EE+lowE+lensing)
+#LSCDM - Model Calculations
+# Plotting lambda vs H_0 for different gamma values
 
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
@@ -8,26 +7,26 @@ from numpy import arange
 
 from main_functions import hubble_finder
 
-# gamma values starting from g=-0.025 up to g=-0.06, with step size -0.001
-lamda_values = arange(-12, -20.1, -0.1)
+# lambda values starting from -4 up to -24, with step size 0.05
+lamda_values = arange(-4, -24.05, -0.05)
 
-# H_0 values for lambda = 0 at different z_dagger values
-h0_values_1 = [hubble_finder(-0.015, lamda) for lamda in lamda_values]
+# H_0 values for gamma = -0.001 for different lambda values
+h0_values_1 = [hubble_finder(-0.001, lamda) for lamda in lamda_values]
 
-# H_0 values for lambda = 0 at different z_dagger values
-h0_values_2 = [hubble_finder(-0.016, lamda) for lamda in lamda_values]
+# H_0 values for gamma = -0.004 for different lambda values
+h0_values_4 = [hubble_finder(-0.004, lamda) for lamda in lamda_values]
 
-# H_0 values for lambda = 0 at different z_dagger values
-h0_values_3 = [hubble_finder(-0.017, lamda) for lamda in lamda_values]
+# H_0 values for gamma = -0.007 for different lambda values
+h0_values_7 = [hubble_finder(-0.007, lamda) for lamda in lamda_values]
 
-# H_0 values for lambda = 0 at different z_dagger values
-h0_values_4 = [hubble_finder(-0.018, lamda) for lamda in lamda_values]
+# H_0 values for gamma = -0.010 for different lambda values
+h0_values_10 = [hubble_finder(-0.010, lamda) for lamda in lamda_values]
 
-# H_0 values for lambda = 0 at different z_dagger values
-h0_values_5 = [hubble_finder(-0.019, lamda) for lamda in lamda_values]
+# H_0 values for gamma = -0.013 for different lambda values
+h0_values_13 = [hubble_finder(-0.013, lamda) for lamda in lamda_values]
 
-# H_0 values for lambda = 0 at different z_dagger values
-h0_values_6 = [hubble_finder(-0.020, lamda) for lamda in lamda_values]
+# H_0 values for gamma = -0.017 for different lambda values
+h0_values_17 = [hubble_finder(-0.017, lamda) for lamda in lamda_values]
 
 
 # ---------- PLOTTING ----------
@@ -36,35 +35,33 @@ h0_values_6 = [hubble_finder(-0.020, lamda) for lamda in lamda_values]
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
-
 fig, ax0 = plt.subplots(figsize=(19.20, 10.80))
 
 # ---------- AX0 ----------
 
 ax0.plot(lamda_values, h0_values_1, linestyle=(0, (1, 10)),
-        color='#661100', label='$\gamma = -0.015$')
+        color='#661100', label='$\gamma = -0.001$')
 
-ax0.plot(lamda_values, h0_values_2, linestyle=(0, (1, 1)),
-        color='#CC6677',  label='$\gamma = -0.016$')
+ax0.plot(lamda_values, h0_values_4, linestyle=(0, (1, 1)),
+        color='#CC6677',  label='$\gamma = -0.004$')
 
-ax0.plot(lamda_values, h0_values_3, linestyle=(0, (5, 10)),
-        color='#DDCC77',  label='$\gamma = -0.017$')
+ax0.plot(lamda_values, h0_values_7, linestyle=(0, (5, 10)),
+        color='#DDCC77',  label='$\gamma = -0.007$')
 
-ax0.plot(lamda_values, h0_values_4, linestyle=(0, (5, 1)),
-        color='#999933',  label='$\gamma = -0.018$')
+ax0.plot(lamda_values, h0_values_10, linestyle=(0, (5, 1)),
+        color='#999933',  label='$\gamma = -0.010$')
 
-ax0.plot(lamda_values, h0_values_5, linestyle=(0, (3, 1, 1, 1, 1, 1)),
-        color='#44AA99',  label='$\gamma = -0.019$')
+ax0.plot(lamda_values, h0_values_13, linestyle=(0, (3, 1, 1, 1, 1, 1)),
+        color='#44AA99',  label='$\gamma = -0.013$')
 
-ax0.plot(lamda_values, h0_values_6, linestyle=(0, (3, 1, 1, 1)),
-        color='#AA4499',   label='$\gamma = -0.020$')
+ax0.plot(lamda_values, h0_values_17, linestyle=(0, (3, 1, 1, 1)),
+        color='#AA4499',   label='$\gamma = -0.017$')
 
 
 # ---------- GRAPH OPTIONS ----------
 
 # Setting Limits
-ax0.set_xlim(-12, -20)
-# ax0.set_ylim(65, 75)
+ax0.set_xlim(-4, -24)
 # Setting Labels
 ax0.set_ylabel('$H_0$')
 ax0.set_xlabel('$\lambda$')

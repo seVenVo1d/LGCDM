@@ -1,7 +1,12 @@
 from numpy import copysign, sqrt, exp
 from numpy import log as ln
 from scipy.integrate import quad
+import numpy
 
+# To understand the integration errors and try to understand the priors for gamma and
+# lambda
+
+numpy.seterr(all='raise')
 
 # Important Parameters
 c = 299792.458  # speed of light in [km/s]
@@ -12,6 +17,9 @@ z_rec = 1089.92  # redshift to the recombination
 theta_star = 0.0104110
 r_star = 144.43
 
+# Prior Ranges
+# gamma = (-0.001, -0.018)
+# lambda = (-4, -24)
 
 # angular diameter distance to the recombination in [Mpc]
 C_true = (100 * r_star) / (c * theta_star)
@@ -58,17 +66,21 @@ def hubble_finder(gamma, lamda):
         gamma : gamma parameter for the LSCDM model
         lamda : lambda parameter for the LSCDM model
     """
-    h_min, h_max = 0.4, 0.9
+    h_min, h_max = 0.4, 1
     for i in range(100):
         h0_test = (h_min + h_max) / 2
-        C_test = quad(C_finder, 0, z_rec, args=(h0_test, gamma, lamda))[0]
-        if abs(C_true - C_test) > 10**(-6):
-            if C_true - C_test > 0:
-                h_max = h0_test
-            else:
-                h_min = h0_test
+        try:
+            C_test = quad(C_finder, 0, z_rec, args=(h0_test, gamma, lamda))[0]
+        except:
+            return 'error'
         else:
-            break
+            if abs(C_true - C_test) > 10**(-6):
+                if C_true - C_test > 0:
+                    h_max = h0_test
+                else:
+                    h_min = h0_test
+            else:
+                break
     return h0_test * 100
 
 
@@ -77,7 +89,7 @@ def hubble_finder_LCDM():
     """
     Finding the hubble constant for LCDM Model - 10**(-6) precision
     """
-    h_min, h_max = 0.4, 0.9
+    h_min, h_max = 0.50, 0.90
     for i in range(100):
         h0_test = (h_min + h_max) / 2
         C_test = quad(C_finder_LCDM, 0, z_rec, args=(h0_test))[0]
@@ -203,4 +215,3 @@ def E_function_LCDM(z, h0):
 def z_dagger_finder(gamma, lamda):
     psi = 3*gamma*(lamda-1)
     return exp(1/psi) - 1
-

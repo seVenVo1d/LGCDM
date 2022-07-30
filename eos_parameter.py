@@ -1,19 +1,18 @@
-# gDE-Hubble Constant Calculation
-# Plotting w_g,0 as a function of z_dagger and lambda - Contour Plot
-# All parameters are taken from Planck 2018 (TT,TE,EE+lowE+lensing)
+# LSCDM - Model Calculations
+# Plotting w_g,0 as a function of gamma and lambda - Contour Plot
 
 import matplotlib.pyplot as plt
-import matplotlib.ticker as tck
 from matplotlib import cm
 from numpy import arange, meshgrid, reshape, transpose
 
 from main_functions import w_g
 
-# gamma values starting from g=-0.025 up to g=-0.06, with step size -0.001
-gamma_values = arange(-0.015, -0.0205, -0.0005)
+# gamma values starting from gamma = -0.001 to gamma = -0.018 with step size 0.0005
+gamma_values = arange(-0.001, -0.01805, -0.0005)
 
-# lambda values starting from lambda = -8 to lambda = -32 with step size -0.25
-lamda_values = arange(-12, -20.1, -0.1)
+# lambda values starting from lambda = -4 to lambda = -24 with step size 0.01
+lamda_values = arange(-4, -24.01, -0.01)
+
 
 X, Y = meshgrid(gamma_values, lamda_values)
 
@@ -35,7 +34,7 @@ plt.contourf(X, Y, Z, cmap=cm.plasma, antialiased=True)
 # ---------- GRAPH OPTIONS ----------
 
 # Setting Limits
-ax0.set_xlim(-0.015, -0.020)
+ax0.set_xlim(-0.001, -0.018)
 # Setting Labels
 ax0.set_xlabel('$\gamma$')
 ax0.set_ylabel('$\lambda$')
@@ -46,4 +45,5 @@ plt.colorbar()
 plt.imshow(Z, vmin=0., vmax=3., cmap=cm.plasma, origin='lower', extent=[X.min(), X.max(), Y.min(), Y.max()], aspect=8)
 plt.axis('tight')
 plt.show()
+
 fig.savefig('plots/eos_parameter.eps', format='eps', dpi=600)
