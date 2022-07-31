@@ -10,10 +10,10 @@ from main_functions import Q
 z_values = arange(0, 10.0001, 0.0001)
 
 
-Q_values_12 = [Q(z, -0.015, -12) for z in z_values]
-Q_values_16 = [Q(z, -0.015, -16) for z in z_values]
-Q_values_20 = [Q(z, -0.015, -20) for z in z_values]
-Q_values_24 = [Q(z, -0.015, -24) for z in z_values]
+Q_values_12 = [Q(z, -0.011, -14) for z in z_values]
+Q_values_16 = [Q(z, -0.012, -16) for z in z_values]
+Q_values_20 = [Q(z, -0.013, -18) for z in z_values]
+Q_values_24 = [Q(z, -0.014, -20) for z in z_values]
 
 
 # ---------- PLOTTING ----------
@@ -26,10 +26,10 @@ fig, ax0 = plt.subplots(figsize=(19.20, 10.80))
 
 # ---------- AX0 ----------
 
-ax0.plot(z_values, Q_values_12, linestyle=(0, (1, 1)), color='#661100', label='$\lambda = -12$')
-ax0.plot(z_values, Q_values_16, linestyle=(0, (5, 10)), color='#DDCC77', label='$\lambda = -16$')
-ax0.plot(z_values, Q_values_20, linestyle=(0, (5, 1)), color='#999933', label='$\lambda = -20$')
-ax0.plot(z_values, Q_values_24, linestyle=(0, (3, 1, 1, 1, 1, 1)), color='#CC6677', label='$\lambda = -24$')
+ax0.plot(z_values, Q_values_12, linestyle=(0, (1, 1)), color='#661100', label='$(\gamma, \lambda) = (-0.011, -14)$')
+ax0.plot(z_values, Q_values_16, linestyle=(0, (5, 10)), color='#DDCC77', label='$(\gamma, \lambda) = (-0.012, -16)$')
+ax0.plot(z_values, Q_values_20, linestyle=(0, (5, 1)), color='#999933', label='$(\gamma, \lambda) = (-0.013, -18)$')
+ax0.plot(z_values, Q_values_24, linestyle=(0, (3, 1, 1, 1, 1, 1)), color='#CC6677', label='$(\gamma, \lambda) = (-0.014, -20)$')
 ax0.axhline(y=1, color='black', linestyle='-', label='$\Lambda$CDM')
 ax0.axhline(y=-1, color='red', linestyle='-', label=r'$\rho_{\rm g} = -\rho_{\rm g,0}$')
 
