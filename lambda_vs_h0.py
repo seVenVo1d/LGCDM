@@ -79,9 +79,9 @@ plt.fill_between(lamda_values, 67.36-0.54, 67.36+0.54, color='red', alpha=0.4)
 plt.fill_between(lamda_values, 69.6-0.8, 69.6+0.8, color='green', alpha=0.4)
 plt.fill_between(lamda_values, 73.04-1.04, 73.04+1.04, color='blue', alpha=0.4)
 
-plt.text(1.55, 67.36, 'PL18', verticalalignment='top')
-plt.text(1.55, 69.60, 'TRGB', verticalalignment='top')
-plt.text(1.55, 73.04, 'R21', verticalalignment='top')
+plt.text(-22, 67.36, 'PL18', verticalalignment='top')
+plt.text(-22, 69.60, 'TRGB', verticalalignment='top')
+plt.text(-22, 73.04, 'R21', verticalalignment='top')
 
 plt.show()
 ax0.set_rasterized(True)
