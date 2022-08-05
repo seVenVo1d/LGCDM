@@ -51,7 +51,7 @@ ax0.set_xlim(0, 10)
 ax0.set_ylim(-1.1, 1.1)
 # Setting Labels
 ax0.set_xlabel('$z$')
-ax0.set_ylabel(r'$\rho_{\rm g} / \rho_{\rm g,0}$')
+ax0.set_ylabel('$\mathcal{Q}$')
 # Minor Ticks
 ax0.yaxis.set_ticks_position('both')
 ax0.xaxis.set_ticks_position('both')
