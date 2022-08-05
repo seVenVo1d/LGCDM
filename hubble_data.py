@@ -2,34 +2,41 @@
 # Plotting the Hubble Data Obtained from Table 2 in 
 # https://arxiv.org/pdf/1802.01505.pdf
 
+import matplotlib.pylab as pylab
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
-from numpy import arange
+import numpy as np
 
-from main_functions import (E_function, E_function_LCDM, hubble_finder,
-                            hubble_finder_LCDM)
+from main_functions_gde import E_function_gDE, hubble_finder_gDE
+from main_functions_lcdm import E_function_LCDM, hubble_finder_LCDM
 
+# Adjusting size of the figure
+params = {'legend.fontsize': '14',
+          'figure.figsize': (19.20, 10.80),
+          'axes.labelsize': '20',
+          'xtick.labelsize':'20',
+          'ytick.labelsize':'20'}
+pylab.rcParams.update(params)
 
 # z values that will be used for the x axis. Runs from z=0 to z=1 with step size 0.001
-z_values = arange(0, 1, 0.001)
+z_values = np.arange(0, 1, 0.001)
 
 # Adjusting the z_dagger parameter
 gamma_test = -0.017
 
-
 # Hubble Constants
-h0_lcdm = hubble_finder_LCDM() / 100
-h0_8 = hubble_finder(gamma_test, -8) / 100
-h0_12 = hubble_finder(gamma_test, -12) / 100
-h0_16 = hubble_finder(gamma_test, -16) / 100
-h0_20 = hubble_finder(gamma_test, -20) / 100
+h0_lcdm = hubble_finder_LCDM()
+h0_8 = hubble_finder_gDE(gamma_test, -8)
+h0_12 = hubble_finder_gDE(gamma_test, -12)
+h0_16 = hubble_finder_gDE(gamma_test, -16)
+h0_20 = hubble_finder_gDE(gamma_test, -20)
 
 # ---------- E(z) ----------
 Ez_LCDM = [E_function_LCDM(z, h0_lcdm) for z in z_values]
-Ez_8 = [E_function(z, h0_8, gamma_test, -8) for z in z_values]
-Ez_12 = [E_function(z, h0_12 , gamma_test, -12) for z in z_values]
-Ez_16 = [E_function(z, h0_16 , gamma_test, -16) for z in z_values]
-Ez_20 = [E_function(z, h0_20 , gamma_test, -20) for z in z_values]
+Ez_8 = [E_function_gDE(z, h0_8, gamma_test, -8) for z in z_values]
+Ez_12 = [E_function_gDE(z, h0_12 , gamma_test, -12) for z in z_values]
+Ez_16 = [E_function_gDE(z, h0_16 , gamma_test, -16) for z in z_values]
+Ez_20 = [E_function_gDE(z, h0_20 , gamma_test, -20) for z in z_values]
 
 
 # ---------- PLOTTING ----------

@@ -1,13 +1,24 @@
 # LSCDM - Model Calculations
-# Plotting Q vs z by varying lambda for constant gamma
+# Plotting Q vs z by varying lambda and gamma
 
+import matplotlib.pylab as pylab
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
-from numpy import arange
+import numpy as np
 
-from main_functions import Q
+from main_functions_gde import Q
 
-z_values = arange(0, 10.0001, 0.0001)
+# Adjusting size of the figure
+params = {'legend.fontsize': '14',
+          'figure.figsize': (19.20, 10.80),
+          'axes.labelsize': '20',
+          'xtick.labelsize':'20',
+          'ytick.labelsize':'20'}
+pylab.rcParams.update(params)
+
+
+# Z values ranging from 0 to 10
+z_values = np.arange(0, 10.0001, 0.0001)
 
 
 Q_values_12 = [Q(z, -0.011, -14) for z in z_values]
@@ -40,7 +51,7 @@ ax0.set_xlim(0, 10)
 ax0.set_ylim(-1.1, 1.1)
 # Setting Labels
 ax0.set_xlabel('$z$')
-ax0.set_ylabel('$\mathcal{Q}(z, \gamma, \lambda)$')
+ax0.set_ylabel(r'$\rho_{\rm g} / \rho_{\rm g,0}$')
 # Minor Ticks
 ax0.yaxis.set_ticks_position('both')
 ax0.xaxis.set_ticks_position('both')

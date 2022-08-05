@@ -1,41 +1,52 @@
+# BAO plots
+
 import matplotlib.gridspec as gridspec
+import matplotlib.pylab as pylab
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
-import numpy
-from numpy import arange
-from numpy import log as ln
+import numpy as np
 
-from main_functions import (dm, dm_LCDM, hubble_finder, hubble_finder_LCDM,
-                            hubble_function, hubble_function_LCDM)
+# Adjusting size of the figure
+params = {'legend.fontsize': '14',
+          'figure.figsize': (19.20, 10.80),
+          'axes.labelsize': '20',
+          'xtick.labelsize':'20',
+          'ytick.labelsize':'20'}
+pylab.rcParams.update(params)
 
+
+from main_functions_gde import (d_M_function_gDE, hubble_finder_gDE,
+                                hubble_function_gDE)
+from main_functions_lcdm import (d_M_function_LCDM, hubble_finder_LCDM,
+                                 hubble_function_LCDM)
 
 c = 299792.458  # speed of light in [km/s]
 
 # z values that will be used for the x axis. Runs from z=0 to z=5 with step size 0.001
-z_values = arange(0.001, 5.001, 0.001)
+z_values = np.arange(0.001, 5.001, 0.001)
 
 # Adjusting the Lambda parameter
 lamda_test = -24
 
 # Hubble Constants
-h0_lcdm = hubble_finder_LCDM() / 100
-h0_13 = hubble_finder(-0.013, lamda_test) / 100
-h0_15 = hubble_finder(-0.015, lamda_test) / 100
-h0_17 = hubble_finder(-0.017, lamda_test) / 100
+h0_lcdm = hubble_finder_LCDM()
+h0_13 = hubble_finder_gDE(-0.013, lamda_test)
+h0_15 = hubble_finder_gDE(-0.015, lamda_test)
+h0_17 = hubble_finder_gDE(-0.017, lamda_test)
 
 
 # ---------- PART I H(z) / (1+z) ----------
 LCDM_data_h = [hubble_function_LCDM(z, h0_lcdm) / (1 + z) for z in z_values]
-z_dagger_13_h= [hubble_function(z, h0_13, -0.013, lamda_test) / (1 + z) for z in z_values]
-z_dagger_15_h= [hubble_function(z, h0_15, -0.015, lamda_test) / (1 + z) for z in z_values]
-z_dagger_17_h= [hubble_function(z, h0_17, -0.017, lamda_test) / (1 + z) for z in z_values]
+z_dagger_13_h= [hubble_function_gDE(z, h0_13, -0.013, lamda_test) / (1 + z) for z in z_values]
+z_dagger_15_h= [hubble_function_gDE(z, h0_15, -0.015, lamda_test) / (1 + z) for z in z_values]
+z_dagger_17_h= [hubble_function_gDE(z, h0_17, -0.017, lamda_test) / (1 + z) for z in z_values]
 
 
 # ---------- PART II cln(1+z) / D_M(z) ----------
-LCDM_data_dm = [(c*ln(1+z))/dm_LCDM(z, h0_lcdm) for z in z_values]
-z_dagger_13_dm = [(c*ln(1+z))/dm(z, h0_13, -0.013, lamda_test) for z in z_values]
-z_dagger_15_dm = [(c*ln(1+z))/dm(z, h0_15, -0.015, lamda_test) for z in z_values]
-z_dagger_17_dm = [(c*ln(1+z))/dm(z, h0_17, -0.017, lamda_test) for z in z_values]
+LCDM_data_dm = [(c*np.log(1+z))/d_M_function_LCDM(z, h0_lcdm) for z in z_values]
+z_dagger_13_dm = [(c*np.log(1+z))/d_M_function_gDE(z, h0_13, -0.013, lamda_test) for z in z_values]
+z_dagger_15_dm = [(c*np.log(1+z))/d_M_function_gDE(z, h0_15, -0.015, lamda_test) for z in z_values]
+z_dagger_17_dm = [(c*np.log(1+z))/d_M_function_gDE(z, h0_17, -0.017, lamda_test) for z in z_values]
 
 # ---------- PLOTTING ----------------
 # latex rendering text fonts
@@ -82,15 +93,16 @@ ax0.plot(z_values, z_dagger_17_h, linestyle=(0, (5, 10)),
 #              ecolor='purple', capsize=2, capthick=1, label='SH0ES')
 
 # BOSS Galaxy
-ax0.errorbar(0.38, 59.077, yerr=1.796, fmt='o', ecolor='blue', label='BOSS Galaxy')
-ax0.errorbar(0.51, 60.447, yerr=1.570, fmt='o', ecolor='blue')
+ax0.errorbar(0.38, 59.200, yerr=1.800, fmt='o', ecolor='blue', label='BOSS Galaxy')
+ax0.errorbar(0.51, 60.573, yerr=1.573, fmt='o', ecolor='blue')
 
 # eBOSS
-ax0.errorbar(0.70, 62.024, yerr=1.701, fmt='s', ecolor='yellow', label='eBOSS')
-ax0.errorbar(1.48, 61.979, yerr=2.571, fmt='s', ecolor='yellow')
+ax0.errorbar(0.70, 62.153, yerr=1.704, fmt='s', ecolor='yellow', label='eBOSS')
+ax0.errorbar(1.48, 62.108, yerr=2.576, fmt='s', ecolor='yellow')
 
 # Ly alpha
-ax0.errorbar(2.33, 68.540, yerr=2.149, fmt='+', ecolor='magenta', label=r'Ly$\alpha$-Ly$\alpha$')
+ax0.errorbar(2.33, 68.683, yerr=2.154, fmt='+', ecolor='magenta', label=r'Ly$\alpha$-Ly$\alpha$')
+ax0.errorbar(2.33, 67.548, yerr=2.529, fmt='x', ecolor='magenta', label=r'Ly$\alpha$-Quasar')
 
 
 # ---------- GRAPH OPTIONS ----------
@@ -129,19 +141,20 @@ ax1.plot(z_values, z_dagger_17_dm, linestyle=(0, (5, 10)),
 # Errors
 
 # MGS
-ax1.errorbar(0.15, 61.849, yerr=3.528, fmt='X', ecolor='purple', label='MGS')
+ax1.errorbar(0.15, 61.725, yerr=3.521, fmt='X', ecolor='purple', label='MGS')
 
 # BOSS Galaxy
-ax1.errorbar(0.38, 64.170, yerr=1.066, fmt='o', ecolor='blue', label='BOSS Galaxy')
-ax1.errorbar(0.51, 62.8701, yerr=0.9882, fmt='o', ecolor='blue')
+ax1.errorbar(0.38, 64.304, yerr=1.069, fmt='o', ecolor='blue', label='BOSS Galaxy')
+ax1.errorbar(0.51, 63.0014, yerr=0.9903, fmt='o', ecolor='blue')
 
 # eBOSS
-ax1.errorbar(0.70, 60.555, yerr=1.119, fmt='s', ecolor='yellow', label='eBOSS')
-ax1.errorbar(0.85, 63.334, yerr=3.110, fmt='s', ecolor='yellow')
-ax1.errorbar(1.48, 60.318, yerr=1.572, fmt='s', ecolor='yellow')
+ax1.errorbar(0.70, 60.681, yerr=1.121, fmt='s', ecolor='yellow', label='eBOSS')
+ax1.errorbar(0.85, 63.442, yerr=3.114, fmt='s', ecolor='yellow')
+ax1.errorbar(1.48, 60.445, yerr=1.576, fmt='s', ecolor='yellow')
 
 # Ly alpha
-ax1.errorbar(2.33, 65.209, yerr=3.295, fmt='+', ecolor='magenta', label=r'Ly$\alpha$-Ly$\alpha$')
+ax1.errorbar(2.33, 65.345, yerr=3.302, fmt='+', ecolor='magenta', label=r'Ly$\alpha$-Ly$\alpha$')
+ax1.errorbar(2.33, 65.871, yerr=3.002, fmt='x', ecolor='magenta', label=r'Ly$\alpha$-Quasar')
 
 
 # ---------- GRAPH OPTIONS ----------
