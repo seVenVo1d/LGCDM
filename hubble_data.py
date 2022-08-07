@@ -53,7 +53,7 @@ def inverse(x):
     return x**2-1
 
 
-fig, ax0 = plt.subplots(figsize=(19.20, 10.80))
+fig, ax0 = plt.subplots()
 
 # ---------- AX0 ----------
 

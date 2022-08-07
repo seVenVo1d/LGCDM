@@ -38,7 +38,7 @@ plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
 
-fig, ax0 = plt.subplots(figsize=(19.20, 10.80))  # adjusting the size of the figure
+fig, ax0 = plt.subplots()  # adjusting the size of the figure
 plt.contourf(X, Y, Z, cmap=cm.plasma, antialiased=True)
 
 # ---------- GRAPH OPTIONS ----------

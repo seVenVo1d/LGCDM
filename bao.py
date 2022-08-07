@@ -61,7 +61,7 @@ def inverse(x):
     return x**2-1
 
 
-fig = plt.figure(constrained_layout=True, figsize=(19.20, 10.80))
+fig = plt.figure(constrained_layout=True)
 spec = gridspec.GridSpec(ncols=1, nrows=2, figure=fig)
 
 ax0 = fig.add_subplot(spec[0, 0])

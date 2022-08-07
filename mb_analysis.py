@@ -2,7 +2,6 @@
 # https://archive.stsci.edu/hlsps/ps1cosmo/scolnic/binned_data/hlsp_ps1cosmo_panstarrs_gpc1_all_model_v1_lcparam.txt
 # https://archive.stsci.edu/doi/resolve/resolve.html?doi=10.17909/T95Q4X
 
-from operator import index
 import matplotlib.pylab as pylab
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
@@ -10,8 +9,9 @@ import numpy as np
 import pandas as pd
 from scipy.integrate import quad
 
-from main_functions_gde import hubble_finder_gDE, z_d_finder
+from main_functions_gde import hubble_finder_gDE
 from main_functions_lcdm import hubble_finder_LCDM
+
 
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',
@@ -34,7 +34,8 @@ w_n = 2.469 * 10**(-5)*(7/8)*(4/11)**(4/3)*N_eff   # physical neutrino density p
 w_r = w_p + w_n  # physical radiation density parameter
 
 
-# Defining the distance modulus
+# Calculating M_B
+
 def Mb_finder_LCDM(row):
     z_i, mb, mb_err = row[[1, 4, 5]]
     h0 = hubble_finder_LCDM()
@@ -47,11 +48,9 @@ def Mb_finder_LCDM(row):
     return (z_i, Mb, Mb_error)
 
 
-def Mb_finder_gDE(row):
-    gamma = -0.015
-    lamda = -10
+def Mb_finder_gDE(row, gamma, lamda):
     z_i, mb, mb_err = row[[1, 4, 5]]
-    h0 = hubble_finder_gDE(-0.015, -10)
+    h0 = hubble_finder_gDE(gamma, lamda)
     y = 1 / (1 - lamda)
     def integrand(z):
         x = 1 - 3*gamma*(lamda-1)*np.log(1+z)
@@ -63,9 +62,9 @@ def Mb_finder_gDE(row):
     Mb_error = mb_err
     return (z_i, Mb, Mb_error)
 
+
 # Importing data
 data = pd.read_csv('mb_data.txt', sep=' ')
-
 
 # ------------ LCDM ---------------
 Mb_LCDM = data.apply(Mb_finder_LCDM, axis=1)
@@ -77,9 +76,11 @@ for z_i, M_b, M_b_err in  Mb_LCDM:
     M_b_err_values_lcdm.append(M_b_err)
 
 
-
 # ------------ gDE ------------------
-Mb_gDE = data.apply(Mb_finder_gDE, axis=1)
+gamma = -0.016
+lamda = -18
+
+Mb_gDE = data.apply(Mb_finder_gDE, args=(gamma, lamda), axis=1)
 z_values_gde, M_b_values_gde, M_b_err_values_gde = [], [], []
 
 for z_i, M_b, M_b_err in  Mb_gDE:
@@ -102,18 +103,17 @@ plt.rc('font', family='serif')
 
 fig, ax0 = plt.subplots()  # adjusting the size of the figure
 ax0.errorbar(z_values_lcdm, M_b_values_lcdm, yerr=M_b_err_values_lcdm, fmt='s', ecolor='black', label='$\Lambda$CDM' )
-ax0.errorbar(z_values_gde, M_b_values_gde, yerr=M_b_err_values_gde, fmt='v', ecolor='red', label='$\gamma=-0.015, \lambda=-10$')
+ax0.errorbar(z_values_gde, M_b_values_gde, yerr=M_b_err_values_gde, fmt='v', ecolor='red', label=r'$\Lambda_{\rm g}$CDM ($\gamma=-0.016, \lambda=-18$)')
 
 # ---------- GRAPH OPTIONS ----------
 
-# Setting Limits
-ax0.set_xlim(0, 2)
+ax0.set_xlim(0.011, 1.613)
 # Setting Label
 ax0.set_ylabel('$M_B$ [mag]')
 ax0.set_xlabel('$z$')
 # Scaling
 ax0.set_xscale('function', functions=(forward, inverse))
-ax0.set_xticks([0.05, 0.1, 0.5, 1, 2])
+ax0.set_xticks([0.05, 0.1, 0.5, 1, 1.7])
 # Minor Ticks
 ax0.yaxis.set_ticks_position('both')
 ax0.xaxis.set_ticks_position('both')
@@ -121,7 +121,15 @@ ax0.yaxis.set_minor_locator(tck.AutoMinorLocator())
 # Tick Options
 ax0.tick_params(which='major', width=1, size = 7, direction='in')
 ax0.tick_params(which='minor', width=0.6, size = 4, direction='in')
+plt.legend()
+
+plt.fill_between(z_values_gde, -19.244-0.037, -19.2435+0.037, color='blue', alpha=0.5)
+plt.fill_between(z_values_gde,  -19.401-0.027, -19.401+0.027, color='red', alpha=0.5)
+
+plt.text(1.3, -19.41, '$M_B^{P18}$', verticalalignment='top')
+plt.text(1.3, -19.26, '$M_B^{R20}$', verticalalignment='top')
+
 
 plt.show()
 ax0.set_rasterized(True)
-fig.savefig('plots/h0_vs_lambda.eps',rasterized=True,dpi=600)
+fig.savefig('plots/mb_analysis.eps',rasterized=True,dpi=600)

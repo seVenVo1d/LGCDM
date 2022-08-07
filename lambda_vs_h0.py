@@ -47,7 +47,7 @@ h0_lcdm = hubble_finder_LCDM() * 100
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
-fig, ax0 = plt.subplots(figsize=(19.20, 10.80))
+fig, ax0 = plt.subplots()
 
 # ---------- AX0 ----------
 

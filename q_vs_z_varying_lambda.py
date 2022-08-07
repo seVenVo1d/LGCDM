@@ -33,7 +33,7 @@ Q_values_24 = [Q(z, -0.014, -20) for z in z_values]
 plt.rc('text', usetex=True)
 plt.rc('font', family='serif')
 
-fig, ax0 = plt.subplots(figsize=(19.20, 10.80))
+fig, ax0 = plt.subplots()
 
 # ---------- AX0 ----------
 
