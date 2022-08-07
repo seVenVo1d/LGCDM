@@ -12,7 +12,6 @@ from scipy.integrate import quad
 from main_functions_gde import hubble_finder_gDE
 from main_functions_lcdm import hubble_finder_LCDM
 
-
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',
           'figure.figsize': (19.20, 10.80),
