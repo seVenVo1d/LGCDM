@@ -1,7 +1,7 @@
 # Finding D_H(z) H(z_eff)/1+z_eff from D_H/r_d
 
 from uncertainties import ufloat
-from main_functions_lcdm import r_d_finder_LCDM, hubble_finder_LCDM
+from main.lcdm import r_d_finder_LCDM, hubble_finder_LCDM
 
 c = 299792.458  # speed of light in [km/s]
 h0_lcdm = hubble_finder_LCDM()

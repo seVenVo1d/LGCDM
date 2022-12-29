@@ -1,4 +1,4 @@
-#LSCDM - Model Calculations
+# gDE-CDM Model Calculations
 # Plotting lambda vs H_0 for different gamma values
 
 import matplotlib.pylab as pylab
@@ -6,8 +6,9 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
 import numpy as np
 
-from main_functions_gde import hubble_finder_gDE
-from main_functions_lcdm import hubble_finder_LCDM
+from main.gde_cdm import hubble_finder_gDE
+from main.lcdm import hubble_finder_LCDM
+
 
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',

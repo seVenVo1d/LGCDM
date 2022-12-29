@@ -1,4 +1,4 @@
-# LSCDM - Model Calculations
+# gDE-CDM Model Calculations
 # Calculating the Omega_m,0 for a given gamma and lambda
 
 import matplotlib.pylab as pylab
@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
 
-from main_functions_gde import Omega_m0
+from main.gde_cdm import Omega_m0
 
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',

@@ -1,4 +1,4 @@
-# LSCDM - Model Calculations
+# gDE-CDM Model Calculations
 # Plotting w_g,0 as a function of gamma and lambda - Contour Plot
 
 import matplotlib.pylab as pylab
@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
 
-from main_functions_gde import w_g
+from main.gde_cdm import w_g
 
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',

@@ -1,4 +1,4 @@
-# LSCDM - Model Calculations
+# gDE-CDM Model Calculations
 # Plotting z_dagger as a function of gamma and lambda - Contour Plot
 
 import matplotlib.pylab as pylab
@@ -7,7 +7,7 @@ import matplotlib.ticker as tck
 from matplotlib import cm
 import numpy as np
 
-from main_functions_gde import z_dagger_finder
+from main.gde_cdm import z_dagger_finder
 
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',
@@ -61,6 +61,3 @@ plt.show()
 
 ax0.set_rasterized(True)
 fig.savefig('plots/z_dagger_contour.eps',rasterized=True,dpi=600)
-
-
-

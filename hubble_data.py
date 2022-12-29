@@ -1,14 +1,13 @@
-# LSCDM - Model Calculations
-# Plotting the Hubble Data Obtained from Table 2 in 
-# https://arxiv.org/pdf/1802.01505.pdf
+# gDE-CDM Model Calculations
+# Plotting the Hubble Data Obtained from Table 2 in https://arxiv.org/pdf/1802.01505.pdf
 
 import matplotlib.pylab as pylab
 import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
 import numpy as np
 
-from main_functions_gde import E_function_gDE, hubble_finder_gDE
-from main_functions_lcdm import E_function_LCDM, hubble_finder_LCDM
+from main.gde_cdm import E_function_gDE, hubble_finder_gDE
+from main.lcdm import E_function_LCDM, hubble_finder_LCDM
 
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',

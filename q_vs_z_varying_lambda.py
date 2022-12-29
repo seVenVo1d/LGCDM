@@ -1,4 +1,4 @@
-# LSCDM - Model Calculations
+# gDE-CDM Model Calculations
 # Plotting Q vs z by varying lambda and gamma
 
 import matplotlib.pylab as pylab
@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import matplotlib.ticker as tck
 import numpy as np
 
-from main_functions_gde import Q
+from main.gde_cdm import Q
 
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',

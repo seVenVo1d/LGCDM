@@ -9,8 +9,8 @@ import numpy as np
 import pandas as pd
 from scipy.integrate import quad
 
-from main_functions_gde import hubble_finder_gDE
-from main_functions_lcdm import hubble_finder_LCDM
+from main.gde_cdm import hubble_finder_gDE
+from main.lcdm import hubble_finder_LCDM
 
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',

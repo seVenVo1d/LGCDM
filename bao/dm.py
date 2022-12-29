@@ -1,8 +1,9 @@
 # Finding cln(1+z_eff)/D_M(z_eff) from D_M/r_d
+
 import numpy as np
 from uncertainties import ufloat
 
-from main_functions_lcdm import hubble_finder_LCDM, r_d_finder_LCDM
+from main.lcdm import hubble_finder_LCDM, r_d_finder_LCDM
 
 c = 299792.458  # speed of light in [km/s]
 h0_lcdm = hubble_finder_LCDM()

@@ -3,7 +3,7 @@
 import numpy as np
 from uncertainties import ufloat, umath
 
-from main_functions_lcdm import hubble_finder_LCDM, hubble_function_LCDM, r_d_finder_LCDM
+from main.lcdm import hubble_finder_LCDM, hubble_function_LCDM, r_d_finder_LCDM
 
 #important parameters
 c = 299792.458  # speed of light in [km/s]

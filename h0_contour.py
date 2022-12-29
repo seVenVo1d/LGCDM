@@ -1,4 +1,4 @@
-# LSCDM Model Calculations
+# gDE-CDM Model Calculations
 # Plotting H_0 as a function of gamma and lambda - Contour Plot
 
 import matplotlib.pylab as pylab
@@ -7,7 +7,7 @@ import matplotlib.ticker as tck
 from matplotlib import cm
 import numpy as np
 
-from main_functions_gde import hubble_finder_gDE
+from main.gde_cdm import hubble_finder_gDE
 
 # Adjusting size of the figure
 params = {'legend.fontsize': '14',
@@ -62,5 +62,3 @@ plt.show()
 
 ax0.set_rasterized(True)
 fig.savefig('plots/h0_contour.eps',rasterized=True,dpi=600)
-
-

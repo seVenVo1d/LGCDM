@@ -15,10 +15,10 @@ params = {'legend.fontsize': '14',
 pylab.rcParams.update(params)
 
 
-from main_functions_gde import (d_M_function_gDE, hubble_finder_gDE,
+from main.gde_cdm import (d_M_function_gDE, hubble_finder_gDE,
                                 hubble_function_gDE)
-from main_functions_lcdm import (d_M_function_LCDM, hubble_finder_LCDM,
-                                 hubble_function_LCDM)
+from main.lcdm import (d_M_function_LCDM, hubble_finder_LCDM,
+                                hubble_function_LCDM)
 
 c = 299792.458  # speed of light in [km/s]
 
